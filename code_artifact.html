@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>いはらんのプロフィール | Iharan's Profile</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Zen Maru Gothic & M PLUS Rounded 1c -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+      background-color: #f0f9ff;
+      background-image: 
+        radial-gradient(#bae6fd 1.5px, transparent 1.5px),
+        radial-gradient(#e0f2fe 1.5px, #f0f9ff 1.5px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    /* ポップなゆらゆら・浮遊アニメーション */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(8px) rotate(-2deg); }
+    }
+    @keyframes popBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .animate-float {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+    .animate-float-reverse {
+      animation: floatReverse 4.5s ease-in-out infinite;
+    }
+    .pop-badge {
+      box-shadow: 0 4px 0 #0284c7;
+    }
+    .pop-card {
+      box-shadow: 0 8px 0 #bae6fd;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pop-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 0 #7dd3fc;
+    }
+    .pop-button {
+      box-shadow: 0 5px 0 #0284c7;
+      transition: all 0.15s ease-out;
+    }
+    .pop-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #0284c7;
+    }
+    .pop-button:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #0284c7;
+    }
+
+    /* カスタムスクロールバー */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e0f2fe;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7dd3fc;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-700 flex flex-col justify-between selection:bg-sky-200 selection:text-sky-900 pb-12">
+
+  <!-- 背景デコレーション (泡・ステッカー風) -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-12 -left-12 w-48 h-48 bg-sky-200/50 rounded-full blur-2xl"></div>
+    <div class="absolute top-1/3 -right-12 w-64 h-64 bg-cyan-200/40 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-10 text-sky-200 text-5xl opacity-40 animate-float"><i class="fa-solid fa-cloud"></i></div>
+    <div class="absolute top-24 right-12 text-sky-200 text-6xl opacity-40 animate-float-reverse"><i class="fa-solid fa-cloud"></i></div>
+    <div class="absolute top-1/2 left-6 text-sky-300 text-3xl opacity-50 animate-bounce" style="animation-duration: 3s;"><i class="fa-solid fa-sparkles"></i> ✨</div>
+    <div class="absolute bottom-1/4 right-8 text-sky-300 text-3xl opacity-50 animate-bounce" style="animation-duration: 4s;"><i class="fa-solid fa-star"></i> ⚽</div>
+  </div>
+
+  <main class="relative z-10 max-w-xl w-full mx-auto px-4 pt-10 sm:pt-14">
+
+    <!-- プロフィールヘッダー -->
+    <header class="text-center mb-10">
+      <!-- アバター & バッジ -->
+      <div class="relative inline-block mb-4">
+        <!-- 背景リング -->
+        <div class="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-full bg-gradient-to-tr from-sky-400 via-sky-300 to-cyan-200 p-1.5 shadow-lg animate-float">
+          <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-inner relative">
+            <!-- イラストSVG (フレンドリーなキャラクター) -->
+            <svg class="w-24 h-24 text-sky-500" viewBox="0 0 100 100" fill="currentColor">
+              <circle cx="50" cy="40" r="24" fill="#38bdf8"/>
+              <ellipse cx="43" cy="38" rx="3" ry="4" fill="#0f172a"/>
+              <ellipse cx="57" cy="38" rx="3" ry="4" fill="#0f172a"/>
+              <path d="M 44 48 Q 50 54 56 48" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse cx="37" cy="44" rx="4" ry="2.5" fill="#fda4af" opacity="0.8"/>
+              <ellipse cx="63" cy="44" rx="4" ry="2.5" fill="#fda4af" opacity="0.8"/>
+              <path d="M 22 88 C 22 68 35 62 50 62 C 65 62 78 68 78 88 Z" fill="#0284c7"/>
+            </svg>
+            <!-- 飾りのキラキラ -->
+            <div class="absolute top-2 right-4 text-amber-400 text-sm">✨</div>
+          </div>
+        </div>
+
+        <!-- 添えられたサッカーボールバッジ -->
+        <div class="absolute -bottom-1 -right-1 bg-white p-2 rounded-full shadow-md border-2 border-sky-300 transform rotate-12 hover:rotate-45 transition">
+          <span class="text-2xl" role="img" aria-label="サッカーボール">⚽</span>
+        </div>
+      </div>
+
+      <!-- ニックネーム -->
+      <div class="inline-block">
+        <span class="px-3.5 py-1 bg-sky-100 text-sky-600 rounded-full text-xs font-bold uppercase tracking-wider mb-2 inline-block border border-sky-200 shadow-sm">
+          Hello! My Profile
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-black text-sky-900 tracking-tight flex items-center justify-center gap-2">
+          いはらん
+          <span class="text-2xl sm:text-3xl animate-pulse">👋</span>
+        </h1>
+      </div>
+      <p class="text-sky-600 font-semibold mt-2 text-sm sm:text-base">
+        ゆる〜く楽しく生きてます！よろしくね！
+      </p>
+    </header>
+
+    <!-- プロフィールカード一覧 -->
+    <div class="space-y-6">
+
+      <!-- 好きなもの・はまっていること -->
+      <section class="pop-card bg-white rounded-3xl p-6 border-2 border-sky-200 relative overflow-hidden group">
+        <div class="absolute -right-6 -bottom-6 text-7xl text-sky-100 opacity-60 font-black pointer-events-none group-hover:scale-110 transition-transform">
+          SOCCER
+        </div>
+        <div class="flex items-start gap-4 relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 border-2 border-sky-300 flex items-center justify-center text-3xl shadow-sm shrink-0 group-hover:rotate-6 transition-transform">
+            ⚽
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold bg-sky-500 text-white px-2.5 py-0.5 rounded-full">LIKE</span>
+              <h2 class="text-xl font-bold text-slate-800">好きなもの・はまっていること</h2>
+            </div>
+            <p class="text-2xl font-black text-sky-600 tracking-wide mt-1">
+              サッカー！
+            </p>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+              観るのも蹴るのもアツい！ゴールが決まったときのあの爽快感がたまらない。サッカーの話ならいつでも大歓迎です⚽🔥
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 得意なこと -->
+      <section class="pop-card bg-white rounded-3xl p-6 border-2 border-sky-200 relative overflow-hidden group">
+        <div class="absolute -right-4 -bottom-6 text-7xl text-sky-100 opacity-60 font-black pointer-events-none group-hover:rotate-12 transition-transform">
+          NOPE!
+        </div>
+        <div class="flex items-start gap-4 relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-3xl shadow-sm shrink-0 group-hover:-rotate-6 transition-transform">
+            🤷‍♂️
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold bg-amber-400 text-white px-2.5 py-0.5 rounded-full">SKILL</span>
+              <h2 class="text-xl font-bold text-slate-800">得意なこと</h2>
+            </div>
+            <p class="text-2xl font-black text-amber-600 tracking-wide mt-1">
+              ないんだよなー
+            </p>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+              胸を張って「これ超得意！」って言えるものが本当にない（笑）。でもそのぶん、どんなことにもフラットに興味を持てるのが唯一の長所かも？
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- これからやってみたいこと & インタラクティブルーレット -->
+      <section class="pop-card bg-gradient-to-b from-white to-sky-50/50 rounded-3xl p-6 border-2 border-sky-300 relative overflow-hidden">
+        <div class="flex items-start gap-4 relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-100 border-2 border-cyan-300 flex items-center justify-center text-3xl shadow-sm shrink-0 animate-bounce" style="animation-duration: 2s;">
+            💡
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold bg-cyan-500 text-white px-2.5 py-0.5 rounded-full">NEXT</span>
+              <h2 class="text-xl font-bold text-slate-800">これからやってみたいこと</h2>
+            </div>
+            <p class="text-2xl font-black text-sky-700 tracking-wide mt-1">
+              なんかいいものないっすか。
+            </p>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+              新しい趣味や挑戦したいことを絶賛探し中！「これ楽しいよ！」「やってみなよ！」っていうアイデアを大募集してます。
+            </p>
+          </div>
+        </div>
+
+        <!-- インタラクティブ提案ジェネレーター -->
+        <div class="mt-6 pt-5 border-t-2 border-dashed border-sky-200">
+          <div class="bg-sky-100/70 rounded-2xl p-4 text-center border border-sky-200">
+            <p class="text-xs font-bold text-sky-700 mb-2">＼ いはらんにオススメを提案してみる？ ／</p>
+            
+            <!-- 結果表示エリア -->
+            <div id="ideaDisplay" class="bg-white rounded-xl py-3 px-4 border-2 border-sky-300 shadow-sm min-h-[56px] flex items-center justify-center mb-3">
+              <span id="ideaText" class="text-base font-bold text-slate-700">👇 ボタンを押してアイデアをひく！</span>
+            </div>
+
+            <!-- ボタン -->
+            <button id="suggestBtn" onclick="generateIdea()" class="pop-button w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-sky-400 to-sky-500 hover:from-sky-500 hover:to-sky-600 text-white font-black text-base rounded-2xl flex items-center justify-center gap-2 mx-auto active:scale-95 transition cursor-pointer">
+              <i class="fa-solid fa-dice text-xl animate-spin" style="animation-duration: 6s;"></i>
+              <span>おすすめを提案する！</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- メモ・メッセージカード -->
+      <div class="bg-white/80 backdrop-blur rounded-2xl p-5 border border-sky-200 text-center shadow-sm">
+        <p class="text-sm font-bold text-sky-800">
+          ☕ ここまで見てくれてありがとう！
+        </p>
+        <p class="text-xs text-sky-600 mt-1">
+          気軽に話しかけてくれたら嬉しいです。サッカーの話でも何でもどーぞ！
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="relative z-10 text-center text-xs font-bold text-sky-400 mt-10">
+    <p>© 2026 いはらん (Iharan) - All rights reserved ✨</p>
+  </footer>
+
+  <!-- アイデア提案スクリプト -->
+  <script>
+    const ideas = [
+      { text: "ソロキャンプ ⛺ (焚き火で癒やされよう！)", color: "text-emerald-600" },
+      { text: "ボルダリング 🧗‍♂️ (登りきったときの達成感がすごい！)", color: "text-amber-600" },
+      { text: "スパイスカレー作り 🍛 (沼にハマると止まらない！)", color: "text-orange-600" },
+      { text: "フットサルチームを作る ⚽ (サッカー好きなら間違いなし！)", color: "text-sky-600" },
+      { text: "フィルムカメラ 📷 (エモい瞬間を切り取ろう！)", color: "text-rose-600" },
+      { text: "サウナ巡り ♨️ (極上の「ととのう」を体験！)", color: "text-cyan-600" },
+      { text: "プログラミング・Web制作 💻 (自分でゲームやWebを作ろう！)", color: "text-indigo-600" },
+      { text: "ウクレレ演奏 🌴 (手軽に始められてポロロンと癒やされる！)", color: "text-teal-600" },
+      { text: "ロードバイク 🚴‍♂️ (風を感じて遠くまで走っちゃおう！)", color: "text-blue-600" },
+      { text: "家庭菜園・ハーブ栽培 🌱 (育てる楽しさと収穫の喜び！)", color: "text-green-600" }
+    ];
+
+    let lastIndex = -1;
+
+    function generateIdea() {
+      const display = document.getElementById('ideaDisplay');
+      const textEl = document.getElementById('ideaText');
+
+      // ランダム抽選（連続で同じものが出ないように制御）
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * ideas.length);
+      } while (randomIndex === lastIndex && ideas.length > 1);
+      lastIndex = randomIndex;
+
+      const selected = ideas[randomIndex];
+
+      // アニメーション効果
+      textEl.style.opacity = '0';
+      textEl.style.transform = 'scale(0.85)';
+      textEl.style.transition = 'all 0.15s ease-out';
+
+      setTimeout(() => {
+        textEl.innerText = selected.text;
+        textEl.className = `text-base font-black ${selected.color}`;
+        textEl.style.opacity = '1';
+        textEl.style.transform = 'scale(1)';
+      }, 150);
+
+      // ポップな紙吹雪エフェクト
+      confetti({
+        particleCount: 45,
+        spread: 60,
+        origin: { y: 0.75 },
+        colors: ['#38bdf8', '#0284c7', '#bae6fd', '#34d399', '#f472b6']
+      });
+    }
+  </script>
+</body>
+</html>
